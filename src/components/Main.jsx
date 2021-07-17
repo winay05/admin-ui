@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import TableView from "./Table/TableView";
 
-import { apiEndpoint } from "./../ipConfig";
+import { apiEndpoint, PAGELIMIT, DATALIMIT } from "../config";
 import "./styles.css";
+import Paginate from "./Paginate";
 export default class Main extends Component {
   constructor() {
     super();
@@ -12,7 +13,6 @@ export default class Main extends Component {
     this.state = {
       loading: false,
       data: [],
-      selected: [],
     };
   }
 
@@ -46,39 +46,9 @@ export default class Main extends Component {
       300
     );
   };
-  selectAll = () => {
-    if (this.state.selected.length === this.state.data.length) {
-      //need to toggle
-      console.log("unselect all");
-      this.setState({ selected: [] });
-    } else {
-      console.log("selecting all");
-      // this.state.data.map((el) => el.id);
-      this.setState({ selected: [...this.state.data.map((el) => el.id)] });
-    }
-  };
-  selectRow = (id) => {
-    let newSelected = [...this.state.selected];
-    let idx = this.state.selected.indexOf(id);
 
-    if (idx >= 0) {
-      //need to remove
-      // newSelected.splice(1, idx);
-      console.log("removing object");
-
-      newSelected = this.state.selected.filter((el) => el !== id);
-    } else {
-      console.log("adding object");
-      newSelected = [id, ...newSelected];
-    }
-    console.log(newSelected);
-    this.setState({ selected: [...newSelected] });
-  };
   deleteUser = (id) => {
     this.setState({ data: [...this.state.data.filter((el) => el.id !== id)] });
-    this.setState({
-      selected: [...this.state.selected.filter((el) => el !== id)],
-    });
   };
   callAPI = async () => {
     let res = [];
@@ -108,7 +78,15 @@ export default class Main extends Component {
     return (
       <Container>
         <h2 className="mb-5 mt-5">Admin UI</h2>
+
+        {/* <span style={{ border: "none" }}>
+          <img
+            className="inline-fluid"
+            src="https://img.icons8.com/ios/24/000000/search.png"
+            alt="search-icon"
+          /> */}
         <input
+          className="inline"
           id="search-bar"
           type="text"
           onChange={(e) => {
@@ -116,7 +94,21 @@ export default class Main extends Component {
           }}
           placeholder="seach by name, email or role"
         />
+        {/* </span> */}
+
         {this.state.data.length > 0 ? (
+          <Paginate
+            data={this.state.data}
+            pageLimit={PAGELIMIT}
+            dataLimit={DATALIMIT}
+            onDelete={this.deleteUser}
+            RenderComponent={TableView}
+          />
+        ) : (
+          <div>No data to display</div>
+        )}
+
+        {/* {this.state.data.length > 0 ? (
           <TableView
             data={this.state.data}
             delete={this.deleteUser}
@@ -128,7 +120,7 @@ export default class Main extends Component {
           />
         ) : (
           ""
-        )}
+        )} */}
       </Container>
     );
   }

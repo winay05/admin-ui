@@ -6,12 +6,12 @@ const TableHead = (props) => {
   return (
     <thead>
       <tr>
-        <th>
+        <th key="select-all-checkbox">
           <input onClick={selectAll} type="checkbox" />
         </th>
 
-        {props.columns.map((el) => (
-          <th>{el}</th>
+        {props.columns.map((el, idx) => (
+          <th key={idx}>{el}</th>
         ))}
 
         <th>Actions</th>

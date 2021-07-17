@@ -25,13 +25,23 @@ const TableRow = (props) => {
       <td id="email">{props.el.email}</td>
       <td id="role">{props.el.role}</td>
       <td id="actions">
-        <button>Edit</button>
+        <button>
+          <img
+            className="icon"
+            src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png"
+            alt="edit button"
+          />
+        </button>
         <button
           onClick={(e) => {
             handleDelete(props.el.id);
           }}
         >
-          Delete
+          <img
+            className="icon"
+            src="https://img.icons8.com/color/48/000000/delete-forever.png"
+            alt="delete button"
+          />
         </button>
       </td>
     </tr>

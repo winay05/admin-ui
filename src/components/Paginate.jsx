@@ -1,18 +1,23 @@
 import React, { useState } from "react";
+import "./Paginate.css";
 
-export default function Pagination({
+export default function Paginate({
   data,
-  RenderComponent,
-  title,
   pageLimit,
   dataLimit,
-  onSelect,
-  selected,
   onDelete,
+  RenderComponent,
 }) {
+  const [selected, select] = useState([]);
   const [pages] = useState(Math.round(data.length / dataLimit));
   const [currentPage, setCurrentPage] = useState(1);
 
+  function goToFirstPage() {
+    setCurrentPage(1);
+  }
+  function goToLastPage() {
+    setCurrentPage(pages);
+  }
   function goToNextPage() {
     setCurrentPage((page) => page + 1);
   }
@@ -34,25 +39,49 @@ export default function Pagination({
 
   const getPaginationGroup = () => {
     let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
+    // console.log()
     return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
   };
 
-  return (
-    <div>
-      <h1>{title}</h1>
+  const selectAllVisible = () => {
+    if (selected.length === getPaginatedData().length) {
+      //need to toggle
+      console.log("unselect all");
+      select([]);
+    } else {
+      console.log("selecting all");
+      // this.state.data.map((el) => el.id);
+      select([...getPaginatedData().map((el) => el.id)]);
+    }
+    console.log(selected);
+  };
+  const selectRow = (id) => {
+    let newSelected = [...selected];
+    let idx = selected.indexOf(id);
 
-      {/* show the posts, 10 posts at a time */}
-      <div className="dataContainer">
-        {getPaginatedData().map((d) => (
-          <RenderComponent
-            // key={idx}
-            el={d}
-            onSelect={onSelect}
-            selected={selected}
-            onDelete={onDelete}
-          />
-        ))}
-      </div>
+    if (idx >= 0) {
+      //need to remove
+      // newSelected.splice(1, idx);
+      console.log("removing object");
+
+      newSelected = selected.filter((el) => el !== id);
+    } else {
+      console.log("adding object");
+      newSelected = [id, ...newSelected];
+    }
+    console.log(newSelected);
+    select([...newSelected]);
+  };
+  return (
+    <>
+      <RenderComponent
+        columns={Object.keys(data[0]).slice(1)}
+        data={getPaginatedData()}
+        selected={selected}
+        onAllSelect={selectAllVisible}
+        onSelect={selectRow}
+        delete={onDelete}
+      />
 
       {/* show the pagiantion
               it consists of next and previous buttons
@@ -60,12 +89,22 @@ export default function Pagination({
               numbers at a time
           */}
       <div className="pagination">
+        {/* First button */}
+        <button
+          onClick={goToFirstPage}
+          className={`prev ${currentPage === 1 ? "disabled" : ""}`}
+        >
+          first
+        </button>
         {/* previous button */}
         <button
           onClick={goToPreviousPage}
           className={`prev ${currentPage === 1 ? "disabled" : ""}`}
         >
-          prev
+          <img
+            src="https://img.icons8.com/material-sharp/24/000000/chevron-left.png"
+            alt="previous button"
+          />
         </button>
 
         {/* show page numbers */}
@@ -86,9 +125,18 @@ export default function Pagination({
           onClick={goToNextPage}
           className={`next ${currentPage === pages ? "disabled" : ""}`}
         >
-          next
+          <img
+            src="https://img.icons8.com/material-rounded/24/000000/chevron-right.png"
+            alt="next button"
+          />
+        </button>
+        <button
+          onClick={goToLastPage}
+          className={`next ${currentPage === pages ? "disabled" : ""}`}
+        >
+          last
         </button>
       </div>
-    </div>
+    </>
   );
 }

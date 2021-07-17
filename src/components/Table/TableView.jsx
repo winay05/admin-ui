@@ -1,4 +1,5 @@
 import { Table } from "react-bootstrap";
+
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 
@@ -6,7 +7,7 @@ export default function TableView(props) {
   // console.log(props.data);
   return (
     <Table bordered hover>
-      <TableHead columns={props.columns} onSelect={props.selectAll} />
+      <TableHead columns={props.columns} onSelect={props.onAllSelect} />
 
       <TableBody
         data={props.data}
