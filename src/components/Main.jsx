@@ -50,6 +50,13 @@ export default class Main extends Component {
   deleteUser = (id) => {
     this.setState({ data: [...this.state.data.filter((el) => el.id !== id)] });
   };
+
+  multiDelete = (id) => {
+    //id is array of id's to be deleted
+    this.setState({
+      data: [...this.state.data.filter((el) => id.indexOf(el.id) < 0)],
+    });
+  };
   callAPI = async () => {
     let res = [];
     try {
@@ -102,6 +109,7 @@ export default class Main extends Component {
             pageLimit={PAGELIMIT}
             dataLimit={DATALIMIT}
             onDelete={this.deleteUser}
+            onMultiDelete={this.multiDelete}
             RenderComponent={TableView}
           />
         ) : (
