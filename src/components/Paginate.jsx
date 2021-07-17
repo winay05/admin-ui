@@ -58,7 +58,7 @@ export default class Paginate extends Component {
       Math.floor((this.state.currentPage - 1) / this.props.pageLimit) *
       this.props.pageLimit;
     // console.log()
-    return new Array(this.props.pageLimit)
+    return new Array(Math.min(this.props.pageLimit, this.state.pages))
       .fill()
       .map((_, idx) => start + idx + 1);
   };

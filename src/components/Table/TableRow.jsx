@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Table.css";
 
 const TableRow = (props) => {
+  console.log(props.idx);
   const [editing, toggleEdit] = useState(false);
 
   const handleDelete = (id) => {
@@ -13,15 +14,15 @@ const TableRow = (props) => {
   };
   const handleSave = () => {
     toggleEdit(false);
-    document.getElementById("name").disabled = true;
-    document.getElementById("email").disabled = true;
-    document.getElementById("role").disabled = true;
+    document.getElementById(`name-${props.el.id}`).disabled = true;
+    document.getElementById(`email-${props.el.id}`).disabled = true;
+    document.getElementById(`role-${props.el.id}`).disabled = true;
   };
   const handleEdit = () => {
     toggleEdit(true);
-    document.getElementById("name").disabled = false;
-    document.getElementById("email").disabled = false;
-    document.getElementById("role").disabled = false;
+    document.getElementById(`name-${props.el.id}`).disabled = false;
+    document.getElementById(`email-${props.el.id}`).disabled = false;
+    document.getElementById(`role-${props.el.id}`).disabled = false;
   };
 
   return (
@@ -37,13 +38,27 @@ const TableRow = (props) => {
         />
       </td>
       <td>
-        <input id="name" type="text" defaultValue={props.el.name} disabled />
+        <input
+          id={`name-${props.el.id}`}
+          type="text"
+          defaultValue={props.el.name}
+          disabled
+        />
       </td>
       <td>
-        <input id="email" type="email" defaultValue={props.el.email} disabled />
+        <input
+          id={`email-${props.el.id}`}
+          type="email"
+          defaultValue={props.el.email}
+          disabled
+        />
       </td>
       <td>
-        <select id="role" defaultValue={props.el.role} disabled>
+        <select
+          id={`role-${props.el.id}`}
+          defaultValue={props.el.role}
+          disabled
+        >
           <option value="member">Member</option>
           <option value="admin">Admin</option>
           <option value="guest">Guest</option>
