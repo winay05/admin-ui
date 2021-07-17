@@ -1,8 +1,11 @@
-thead {
-  background-color: darkgrey !important;
-  /* margin-bottom: 1rem !important; */
+#search-bar {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+  border: 1px lightgray solid;
+  border-radius: 10px;
 }
-thead th {
-  color: white !important;
-  font-weight: 700 !important;
+#search-bar:focus {
+  border: 2px lightgray solid !important;
+  border-radius: 10px !important;
 }

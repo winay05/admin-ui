@@ -7,6 +7,7 @@ export default function TableView(props) {
   return (
     <Table bordered hover>
       <TableHead columns={props.columns} onSelect={props.selectAll} />
+
       <TableBody
         data={props.data}
         onSelect={props.onSelect}
