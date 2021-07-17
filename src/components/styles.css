@@ -1,0 +1,8 @@
+thead {
+  background-color: darkgrey !important;
+  /* margin-bottom: 1rem !important; */
+}
+thead th {
+  color: white !important;
+  font-weight: 700 !important;
+}
