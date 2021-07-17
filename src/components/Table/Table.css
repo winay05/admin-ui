@@ -1,5 +1,24 @@
-/* tr > #name:hover,
-tr > #email:hover,
-tr > #role:hover {
-  cursor: pointer;
-} */
+#name,
+#email,
+#role {
+  background-color: inherit !important;
+  border: none !important;
+}
+#name:focus,
+#email:focus,
+#role:focus {
+  background-color: inherit !important;
+  border: none !important;
+}
+#actions button {
+  background-color: transparent !important;
+  border: none !important;
+}
+.icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
