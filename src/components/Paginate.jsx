@@ -13,30 +13,24 @@ export default class Paginate extends Component {
   }
 
   goToFirstPage = () => {
-    this.setState({ currentPage: 1 });
+    this.setState({ currentPage: 1, selected: [] });
   };
 
   goToLastPage = () => {
-    this.setState({ currentPage: this.state.pages });
+    this.setState({ currentPage: this.state.pages, selected: [] });
   };
   goToNextPage = () => {
-    this.setState({ currentPage: this.state.currentPage + 1 });
-    // setCurrentPage((page) => page + 1);
+    this.setState({ currentPage: this.state.currentPage + 1, selected: [] });
   };
 
   goToPreviousPage = () => {
-    this.setState({ currentPage: this.state.currentPage - 1 });
-
-    // setCurrentPage((page) => page - 1);
+    this.setState({ currentPage: this.state.currentPage - 1, selected: [] });
   };
 
   changePage = (event) => {
     const pageNumber = Number(event.target.textContent);
-    this.setState({ currentPage: pageNumber });
-
-    // setCurrentPage(pageNumber);
+    this.setState({ currentPage: pageNumber, selected: [] });
   };
-  //   console.log(data);
   getPaginatedData = () => {
     const startIndex =
       this.state.currentPage * this.props.dataLimit - this.props.dataLimit;
@@ -49,43 +43,35 @@ export default class Paginate extends Component {
     let start =
       Math.floor((this.state.currentPage - 1) / this.props.pageLimit) *
       this.props.pageLimit;
-    // console.log()
-    return new Array(Math.min(this.props.pageLimit, this.state.pages))
+
+    return new Array(this.props.pageLimit)
       .fill()
       .map((_, idx) => start + idx + 1);
   };
 
-  selectAllVisible = () => {
+  toggleAllVisible = () => {
     if (this.state.selected.length === this.getPaginatedData().length) {
       //need to toggle
-      console.log("unselect all");
-      // select([]);
       this.setState({ selected: [] });
     } else {
-      console.log("selecting all");
-      // this.state.data.map((el) => el.id);
+      //need to select all
       this.setState({
         selected: [...this.getPaginatedData().map((el) => el.id)],
       });
     }
-    console.log(this.state.selected);
   };
-  selectRow = (id) => {
+  toggleRow = (id) => {
     let newSelected = [...this.state.selected];
     let idx = this.state.selected.indexOf(id);
 
     if (idx >= 0) {
       //need to remove
-      // newSelected.splice(1, idx);
-      console.log("removing object");
-
       newSelected = this.state.selected.filter((el) => el !== id);
     } else {
-      console.log("adding object");
+      //need to select row
       newSelected = [id, ...newSelected];
     }
-    console.log(newSelected);
-    this.setState({ selected: [...newSelected] }, () => {});
+    this.setState({ selected: [...newSelected] });
   };
   handleDelete = (id) => {
     if (!id.length) {
@@ -94,17 +80,14 @@ export default class Paginate extends Component {
       this.setState({
         selected: [...this.state.selected.filter((el) => el !== id)],
       });
+      //call the parent method
       this.props.onDelete(id);
     } else {
       //an array of id's
-      this.setState(
-        {
-          selected: [...this.state.selected.filter((el) => id.indexOf(el) < 0)],
-        },
-        () => {
-          console.log(this.state.selected);
-        }
-      );
+      this.setState({
+        selected: [...this.state.selected.filter((el) => id.indexOf(el) < 0)],
+      });
+      //call the parent method
       this.props.onMultiDelete(id);
     }
   };
@@ -115,15 +98,14 @@ export default class Paginate extends Component {
           columns={Object.keys(this.props.data[0]).slice(1)}
           data={this.getPaginatedData()}
           selected={this.state.selected}
-          onAllSelect={this.selectAllVisible}
-          onSelect={this.selectRow}
+          onAllSelect={this.toggleAllVisible}
+          onSelect={this.toggleRow}
           delete={this.handleDelete}
         />
 
         {this.state.selected.length > 0 ? (
           <Button
             onClick={() => {
-              console.log("inside click handler");
               this.handleDelete(this.state.selected);
             }}
             variant="danger"
@@ -182,6 +164,7 @@ export default class Paginate extends Component {
               alt="next button"
             />
           </button>
+          {/* last page button */}
           <button
             onClick={this.goToLastPage}
             className={`next ${

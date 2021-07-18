@@ -3,9 +3,8 @@ import { Table } from "react-bootstrap";
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 
-export default function TableView(props) {
-  // console.log(props.data);
-  return (
+const TableView = (props) => (
+  <>
     <Table bordered hover>
       <TableHead
         columns={props.columns}
@@ -14,11 +13,14 @@ export default function TableView(props) {
       />
 
       <TableBody
+        columns={props.columns}
         data={props.data}
         onSelect={props.onSelect}
         selected={props.selected}
         delete={props.delete}
       />
     </Table>
-  );
-}
+  </>
+);
+
+export default TableView;

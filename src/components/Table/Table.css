@@ -22,12 +22,17 @@
   stroke: currentColor;
   fill: currentColor;
 }
-tr * {
+/*tr  {
   cursor: pointer;
 }
-
-thead * {
+*/
+button:disabled {
+  opacity: 0.7;
+}
+thead > tr {
   text-transform: capitalize;
-  color: white;
-  background-color: darkgrey;
+  background-color: lightgray;
+}
+tr.selected {
+  background-color: lightblue;
 }

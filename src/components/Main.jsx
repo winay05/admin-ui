@@ -32,7 +32,7 @@ export default class Main extends Component {
       });
     }
   };
-
+  //call search only when user stops typing for 300ms
   debounceSearch = (event) => {
     let txt = event.target.value;
 
@@ -84,28 +84,17 @@ export default class Main extends Component {
   render() {
     return (
       <Container>
-        <div className="header d-flex align-items-center justify-content-between mb-5 mt-5">
-          <div>
-            <h2>Admin UI</h2>{" "}
-            <span>Search, edit and delete records conveniently</span>
-          </div>
-          <Row className="search-bar-container">
-            <input
-              id="search-bar"
-              type="text"
-              onChange={(e) => {
-                this.debounceSearch(e);
-              }}
-              placeholder="Search by name, email or role"
-            />
-          </Row>
-        </div>
-        {/* <span style={{ border: "none" }}>
-          <img
-            className="inline-fluid"
-            src="https://img.icons8.com/ios/24/000000/search.png"
-            alt="search-icon"
-          /> */}
+        <h2 className="mb-5 mt-5">Admin UI</h2>
+
+        <input
+          className="inline"
+          id="search-bar"
+          type="text"
+          onChange={(e) => {
+            this.debounceSearch(e);
+          }}
+          placeholder="seach by name, email or role"
+        />
 
         {/* </span> */}
         {this.state.data.length > 0 ? (
@@ -120,19 +109,6 @@ export default class Main extends Component {
         ) : (
           <div>No data to display</div>
         )}
-        {/* {this.state.data.length > 0 ? (
-          <TableView
-            data={this.state.data}
-            delete={this.deleteUser}
-            columns={Object.keys(this.state.data[0]).slice(1)}
-            allSelected={false}
-            onSelect={this.selectRow}
-            selectAll={this.selectAll}
-            selected={this.state.selected}
-          />
-        ) : (
-          ""
-        )} */}
       </Container>
     );
   }

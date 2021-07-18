@@ -1,3 +1,5 @@
+import "./Table.css";
+
 const TableHead = (props) => {
   const selectAll = () => {
     props.onSelect();
@@ -6,7 +8,7 @@ const TableHead = (props) => {
   return (
     <thead>
       <tr>
-        <th className="mr-5" key="select-all-checkbox">
+        <th key="select-all-checkbox">
           <input onChange={selectAll} checked={props.checked} type="checkbox" />
         </th>
 
