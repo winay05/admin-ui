@@ -45,6 +45,7 @@ export default class Paginate extends Component {
   };
 
   getPaginationGroup = () => {
+    console.log("painting again");
     let start =
       Math.floor((this.state.currentPage - 1) / this.props.pageLimit) *
       this.props.pageLimit;

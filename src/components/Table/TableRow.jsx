@@ -8,8 +8,10 @@ const TableRow = (props) => {
     props.delete(id);
   };
   const handleToggle = (id) => {
-    console.log("inside click handler");
-    props.onSelect(id);
+    if (!editing) {
+      console.log("inside click handler");
+      props.onSelect(id);
+    }
   };
   const handleSave = () => {
     toggleEdit(false);
