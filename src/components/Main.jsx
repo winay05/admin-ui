@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import TableView from "./Table/TableView";
 
 import { apiEndpoint, PAGELIMIT, DATALIMIT } from "../config";
@@ -84,25 +84,30 @@ export default class Main extends Component {
   render() {
     return (
       <Container>
-        <h2 className="mb-5 mt-5">Admin UI</h2>
-
+        <div className="header d-flex align-items-center justify-content-between mb-5 mt-5">
+          <div>
+            <h2>Admin UI</h2>{" "}
+            <span>Search, edit and delete records conveniently</span>
+          </div>
+          <Row className="search-bar-container">
+            <input
+              id="search-bar"
+              type="text"
+              onChange={(e) => {
+                this.debounceSearch(e);
+              }}
+              placeholder="Search by name, email or role"
+            />
+          </Row>
+        </div>
         {/* <span style={{ border: "none" }}>
           <img
             className="inline-fluid"
             src="https://img.icons8.com/ios/24/000000/search.png"
             alt="search-icon"
           /> */}
-        <input
-          className="inline"
-          id="search-bar"
-          type="text"
-          onChange={(e) => {
-            this.debounceSearch(e);
-          }}
-          placeholder="seach by name, email or role"
-        />
-        {/* </span> */}
 
+        {/* </span> */}
         {this.state.data.length > 0 ? (
           <Paginate
             data={this.state.data}
@@ -115,7 +120,6 @@ export default class Main extends Component {
         ) : (
           <div>No data to display</div>
         )}
-
         {/* {this.state.data.length > 0 ? (
           <TableView
             data={this.state.data}

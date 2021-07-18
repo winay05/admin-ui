@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./Table.css";
 
 const TableRow = (props) => {
-  console.log(props.idx);
   const [editing, toggleEdit] = useState(false);
 
   const handleDelete = (id) => {
@@ -27,7 +26,12 @@ const TableRow = (props) => {
 
   return (
     <tr>
-      <td id="checkbox">
+      <td
+        id="checkbox"
+        onClick={() => {
+          handleToggle(props.el.id);
+        }}
+      >
         <input
           type="checkbox"
           checked={props.checked}
@@ -37,24 +41,39 @@ const TableRow = (props) => {
           value={props.el.id}
         />
       </td>
-      <td>
+      <td
+        onClick={() => {
+          handleToggle(props.el.id);
+        }}
+      >
         <input
+          className="name"
           id={`name-${props.el.id}`}
           type="text"
           defaultValue={props.el.name}
           disabled
         />
       </td>
-      <td>
+      <td
+        onClick={() => {
+          handleToggle(props.el.id);
+        }}
+      >
         <input
+          className="email"
           id={`email-${props.el.id}`}
           type="email"
           defaultValue={props.el.email}
           disabled
         />
       </td>
-      <td>
+      <td
+        onClick={() => {
+          handleToggle(props.el.id);
+        }}
+      >
         <select
+          className="role"
           id={`role-${props.el.id}`}
           defaultValue={props.el.role}
           disabled

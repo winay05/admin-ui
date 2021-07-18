@@ -3,13 +3,6 @@ import "./Paginate.css";
 import { Button } from "react-bootstrap";
 
 export default class Paginate extends Component {
-  // ({
-  //   data,
-  //   pageLimit,
-  //   dataLimit,
-  //   onDelete,
-  //   RenderComponent,
-  // })
   constructor(props) {
     super(props);
     this.state = {
@@ -21,12 +14,10 @@ export default class Paginate extends Component {
 
   goToFirstPage = () => {
     this.setState({ currentPage: 1 });
-    // setCurrentPage(1);
   };
 
   goToLastPage = () => {
     this.setState({ currentPage: this.state.pages });
-    // setCurrentPage(pages);
   };
   goToNextPage = () => {
     this.setState({ currentPage: this.state.currentPage + 1 });
@@ -93,7 +84,7 @@ export default class Paginate extends Component {
       newSelected = [id, ...newSelected];
     }
     console.log(newSelected);
-    this.setState({ selected: [...newSelected] });
+    this.setState({ selected: [...newSelected] }, () => {});
   };
   handleDelete = (id) => {
     if (!id.length) {

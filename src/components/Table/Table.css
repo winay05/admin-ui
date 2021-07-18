@@ -1,12 +1,12 @@
-#name,
-#email,
-#role {
+.name,
+.email,
+.role {
   background-color: inherit !important;
   border: none !important;
 }
-#name:focus,
-#email:focus,
-#role:focus {
+.name:focus,
+.email:focus,
+.role:focus {
   background-color: inherit !important;
   border: none !important;
 }
@@ -21,4 +21,13 @@
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
+}
+tr * {
+  cursor: pointer;
+}
+
+thead * {
+  text-transform: capitalize;
+  color: white;
+  background-color: darkgrey;
 }
