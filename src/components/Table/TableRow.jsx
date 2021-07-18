@@ -10,7 +10,6 @@ const TableRow = (props) => {
     }
   };
   const handleToggle = (id) => {
-    console.log("inside click handler");
     props.onSelect(id);
   };
 
@@ -23,6 +22,7 @@ const TableRow = (props) => {
   };
   return (
     <tr id={props.el.id}>
+      {/* Checkbox */}
       <td id="checkbox">
         <input
           type="checkbox"
@@ -33,7 +33,18 @@ const TableRow = (props) => {
           value={props.el.id}
         />
       </td>
-      <td
+
+      {/* All other columns */}
+      {props.columns.map((columnName) => (
+        <td
+          id={`${columnName}-${props.el.id}`}
+          className={columnName}
+          contentEditable={editable}
+        >
+          {props.el[columnName]}
+        </td>
+      ))}
+      {/* <td
         id={`name-${props.el.id}`}
         className="name"
         contentEditable={editable}
@@ -53,8 +64,10 @@ const TableRow = (props) => {
         contentEditable={editable}
       >
         {props.el.role}
-      </td>
+      </td> */}
+
       <td id="actions">
+        {/* conditanlly render save button */}
         {editable ? (
           <button onClick={handleSave}>
             <img
