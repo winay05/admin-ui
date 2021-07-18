@@ -3,3 +3,10 @@ tr > #email:hover,
 tr > #role:hover {
   cursor: pointer;
 } */
+button:disabled {
+  opacity: 0.7;
+}
+thead > tr {
+  text-transform: capitalize;
+  background-color: lightgray;
+}

@@ -1,3 +1,5 @@
+import "./Table.css";
+
 const TableHead = (props) => {
   const selectAll = () => {
     props.onSelect();

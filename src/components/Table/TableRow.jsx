@@ -1,16 +1,28 @@
+import { useState } from "react";
 import "./Table.css";
 
 const TableRow = (props) => {
+  const [editable, setEditable] = useState(false);
+
   const handleDelete = (id) => {
-    props.delete(id);
+    if (!editable) {
+      props.delete(id);
+    }
   };
   const handleToggle = (id) => {
     console.log("inside click handler");
     props.onSelect(id);
   };
 
+  const handleEdit = () => {
+    setEditable(true);
+  };
+  const handleSave = () => {
+    setEditable(false);
+    //call api endpoint with patch here if the details need to be persisted
+  };
   return (
-    <tr>
+    <tr id={props.el.id}>
       <td id="checkbox">
         <input
           type="checkbox"
@@ -21,18 +33,47 @@ const TableRow = (props) => {
           value={props.el.id}
         />
       </td>
-      <td id="name">{props.el.name}</td>
-      <td id="email">{props.el.email}</td>
-      <td id="role">{props.el.role}</td>
+      <td
+        id={`name-${props.el.id}`}
+        className="name"
+        contentEditable={editable}
+      >
+        {props.el.name}
+      </td>
+      <td
+        id={`email-${props.el.id}`}
+        className="email"
+        contentEditable={editable}
+      >
+        {props.el.email}
+      </td>
+      <td
+        id={`role-${props.el.id}`}
+        className="role"
+        contentEditable={editable}
+      >
+        {props.el.role}
+      </td>
       <td id="actions">
-        <button>
+        {editable ? (
+          <button onClick={handleSave}>
+            <img
+              src="https://img.icons8.com/material-rounded/24/000000/save.png"
+              alt="save-button"
+            />
+          </button>
+        ) : null}
+        {/* disable the edit button when editing */}
+        <button disabled={editable} onClick={handleEdit}>
           <img
             className="icon"
             src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png"
             alt="edit button"
           />
         </button>
+        {/* disable the delete button when editing */}
         <button
+          disabled={editable}
           onClick={(e) => {
             handleDelete(props.el.id);
           }}
