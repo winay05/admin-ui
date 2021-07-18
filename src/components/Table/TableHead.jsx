@@ -7,7 +7,7 @@ const TableHead = (props) => {
     <thead>
       <tr>
         <th key="select-all-checkbox">
-          <input onClick={selectAll} type="checkbox" />
+          <input onChange={selectAll} checked={props.checked} type="checkbox" />
         </th>
 
         {props.columns.map((el, idx) => (

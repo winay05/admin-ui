@@ -7,7 +7,11 @@ export default function TableView(props) {
   // console.log(props.data);
   return (
     <Table bordered hover>
-      <TableHead columns={props.columns} onSelect={props.onAllSelect} />
+      <TableHead
+        columns={props.columns}
+        checked={props.selected.length === props.data.length ? true : false}
+        onSelect={props.onAllSelect}
+      />
 
       <TableBody
         data={props.data}
