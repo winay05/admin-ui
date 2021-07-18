@@ -25,7 +25,7 @@ These are the requirements:
 ## Links
 
 - [Github](https://github.com/winay05/admin-ui)
-- [Live URL]('https://example.com)
+- [Live URL](https://admin-ui-vinay.netlify.app/)
   <br>
 
 ## How I build it
