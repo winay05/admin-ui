@@ -85,16 +85,16 @@ export default class Main extends Component {
     return (
       <Container>
         <h2 className="mb-5 mt-5">Admin UI</h2>
-
-        <input
-          className="inline"
-          id="search-bar"
-          type="text"
-          onChange={(e) => {
-            this.debounceSearch(e);
-          }}
-          placeholder="seach by name, email or role"
-        />
+        <div className="search-bar-container">
+          <input
+            id="search-bar"
+            type="text"
+            onChange={(e) => {
+              this.debounceSearch(e);
+            }}
+            placeholder="seach by name, email or role"
+          />
+        </div>
 
         {/* </span> */}
         {this.state.data.length > 0 ? (
