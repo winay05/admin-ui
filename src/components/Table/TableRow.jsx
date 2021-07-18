@@ -21,7 +21,7 @@ const TableRow = (props) => {
     //call api endpoint with patch here if the details need to be persisted
   };
   return (
-    <tr id={props.el.id}>
+    <tr id={props.el.id} className={props.checked ? "selected" : "unselected"}>
       {/* Checkbox */}
       <td id="checkbox">
         <input

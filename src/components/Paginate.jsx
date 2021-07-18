@@ -13,23 +13,23 @@ export default class Paginate extends Component {
   }
 
   goToFirstPage = () => {
-    this.setState({ currentPage: 1 });
+    this.setState({ currentPage: 1, selected: [] });
   };
 
   goToLastPage = () => {
-    this.setState({ currentPage: this.state.pages });
+    this.setState({ currentPage: this.state.pages, selected: [] });
   };
   goToNextPage = () => {
-    this.setState({ currentPage: this.state.currentPage + 1 });
+    this.setState({ currentPage: this.state.currentPage + 1, selected: [] });
   };
 
   goToPreviousPage = () => {
-    this.setState({ currentPage: this.state.currentPage - 1 });
+    this.setState({ currentPage: this.state.currentPage - 1, selected: [] });
   };
 
   changePage = (event) => {
     const pageNumber = Number(event.target.textContent);
-    this.setState({ currentPage: pageNumber });
+    this.setState({ currentPage: pageNumber, selected: [] });
   };
   getPaginatedData = () => {
     const startIndex =

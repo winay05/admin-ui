@@ -10,3 +10,6 @@ thead > tr {
   text-transform: capitalize;
   background-color: lightgray;
 }
+tr.selected {
+  background-color: lightblue;
+}
