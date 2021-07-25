@@ -35,13 +35,14 @@ These are the requirements:
 - custom pagination as a wrapper for table rows
 - custom debounce searching for search-bar
 
-## What I found most challenging
+## Challenges faced
 
-- Pagination
-- Editing cells inline
-<br>
-<br>
-<hr>
+- Editing cells inline - solved by dynamically adding editable props to fields
+- Pagination - made custom paging component
+  - Dyanmically rendering the page buttons as per the data (state was not updating when props are changed in the parent and couldn't use componentDidUpdate because I had to change the state and doing so would create and infinite loop of update-render. Used the componentWillReceiveProps lifecycle method instead)
+  <br>
+  <br>
+  <hr>
 
 ### How to run the project
 
