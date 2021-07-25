@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import TableView from "./Table/TableView";
 
 import { apiEndpoint, PAGELIMIT, DATALIMIT } from "../config";
@@ -22,7 +22,7 @@ export default class Main extends Component {
     } else {
       this.setState((state) => {
         return {
-          data: this.totalData.filter(
+          data: this.state.data.filter(
             (el) =>
               el.name.toLowerCase().includes(text.toLowerCase()) ||
               el.email.toLowerCase().includes(text.toLowerCase()) ||
@@ -48,6 +48,7 @@ export default class Main extends Component {
   };
 
   deleteUser = (id) => {
+    this.totalData = this.totalData.filter((el) => el.id !== id);
     this.setState({ data: [...this.state.data.filter((el) => el.id !== id)] });
   };
 
@@ -56,6 +57,7 @@ export default class Main extends Component {
     this.setState({
       data: [...this.state.data.filter((el) => id.indexOf(el.id) < 0)],
     });
+    this.totalData = this.totalData.filter((el) => id.indexOf(el.id) < 0);
   };
   callAPI = async () => {
     let res = [];

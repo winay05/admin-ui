@@ -7,7 +7,10 @@ export default class Paginate extends Component {
     super(props);
     this.state = {
       selected: [],
-      pages: Math.round(this.props.data.length / this.props.dataLimit),
+      pages: Math.max(
+        Math.round(this.props.data.length / this.props.dataLimit),
+        1
+      ),
       currentPage: 1,
     };
   }
@@ -20,11 +23,13 @@ export default class Paginate extends Component {
     this.setState({ currentPage: this.state.pages, selected: [] });
   };
   goToNextPage = () => {
-    this.setState({ currentPage: this.state.currentPage + 1, selected: [] });
+    if (this.state.currentPage < this.state.pages)
+      this.setState({ currentPage: this.state.currentPage + 1, selected: [] });
   };
 
   goToPreviousPage = () => {
-    this.setState({ currentPage: this.state.currentPage - 1, selected: [] });
+    if (this.state.currentPage > 0)
+      this.setState({ currentPage: this.state.currentPage - 1, selected: [] });
   };
 
   changePage = (event) => {
@@ -39,12 +44,11 @@ export default class Paginate extends Component {
   };
 
   getPaginationGroup = () => {
-    console.log("painting again");
     let start =
-      Math.floor((this.state.currentPage - 1) / this.props.pageLimit) *
-      this.props.pageLimit;
+      Math.floor((this.state.currentPage - 1) / this.props.dataLimit) *
+      this.props.dataLimit;
 
-    return new Array(this.props.pageLimit)
+    return new Array(Math.min(this.state.pages, this.props.pageLimit))
       .fill()
       .map((_, idx) => start + idx + 1);
   };
@@ -91,6 +95,17 @@ export default class Paginate extends Component {
       this.props.onMultiDelete(id);
     }
   };
+  calculatePages = (newProps) => {
+    return Math.max(1, Math.round(newProps.data.length / newProps.dataLimit));
+  };
+
+  UNSAFE_componentWillReceiveProps(newProps) {
+    this.setState({
+      pages: this.calculatePages(newProps),
+      currentPage: 1,
+    });
+  }
+
   render() {
     return (
       <>

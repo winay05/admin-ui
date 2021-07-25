@@ -5,7 +5,7 @@ import TableHead from "./TableHead";
 
 const TableView = (props) => (
   <>
-    <Table bordered hover>
+    <Table responsive bordered hover>
       <TableHead
         columns={props.columns}
         checked={props.selected.length === props.data.length ? true : false}
